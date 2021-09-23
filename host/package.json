@@ -1,0 +1,17 @@
+{
+  "name": "lofter-memory",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "lightyears1998",
+  "engines": {
+    "node": ">=14"
+  },
+  "type": "module",
+  "repository": {
+    "url": "https://github.com/lightyears1998/lofter-memory.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
