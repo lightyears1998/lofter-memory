@@ -1,10 +1,15 @@
 import express from 'express';
 
-const app = express();
-const briefMS = 3000;
+const PORT = 7670;
 
-app.get('/', (req, res) => {
+const app = express();
+app.use(express.json())
+
+app.post('/', (req, res) => {
+    console.log(req.headers, req.body)
     res.send("Hello, world!")
 })
 
-app.listen(3000)
+app.listen(PORT, () => {
+    console.log(`Server is ready at ${PORT}.`)
+})
