@@ -8,10 +8,11 @@ import { ensureDirSync } from "fs-extra";
 import {
   getPostIdFromPostUrl, getUsernameFromPostUrl, handleImageUrls
 } from "./util.js";
+import { Downloader } from "./downloader.js";
 
 const PORT = 7670;
 const DOWNLOAD_INTERVAL = 200;
-const CONCURRENCY = 2;
+const CONCURRENCY = 4;
 const VAR_PATH = path.resolve(cwd(), "./var");
 const POSTS_PATH = path.resolve(VAR_PATH, "./posts");
 
@@ -28,6 +29,8 @@ let opCntWhenFlushDb = 0;
 
 const app = express();
 app.use(express.json());
+
+const downloader = new Downloader(POSTS_PATH, CONCURRENCY, DOWNLOAD_INTERVAL);
 
 app.post("/", async (req, res) => {
   const body = req.body;
@@ -95,8 +98,9 @@ async function setup() {
   await db.read();
   db.data = db.data ?? { posts: {} };
 
+  downloader.syncWithDatabase(db);
   app.listen(PORT, () => {
-    console.log(`Server is ready at ${PORT}.`);
+    console.log(`Server is ready at port ${PORT}.`);
   });
 
   setInterval(async () => await flushIfNeeded(), 10000);

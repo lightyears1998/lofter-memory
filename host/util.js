@@ -4,10 +4,10 @@
  */
 export function getUsernameFromPostUrl(postUrl) {
   const matchGroup = postUrl.match(/https?:\/\/(.*)\.lofter.com/);
-  if (matchGroup.length === 2) {
+  if (matchGroup && matchGroup.length === 2) {
     return matchGroup[1];
   }
-  throw new Error("Fail to parse username from postUrl");
+  throw new Error(`Fail to parse username from postUrl ${postUrl}`);
 }
 
 /**
@@ -17,10 +17,10 @@ export function getUsernameFromPostUrl(postUrl) {
  */
 export function getPostIdFromPostUrl(postUrl) {
   const matchGroup = postUrl.match(/https?:\/\/.*\.lofter.com\/post\/(.*)/);
-  if (matchGroup.length === 2) {
+  if (matchGroup && matchGroup.length === 2) {
     return matchGroup[1];
   }
-  throw new Error("Fail to parse postId from postUrl");
+  throw new Error(`Fail to parse postId from postUrl ${postUrl}`);
 }
 
 /**
@@ -44,6 +44,19 @@ export function handleImageUrls(imageUrls) {
   }
 
   return uniqueUrls;
+}
+
+/**
+ *
+ * @param {String} imageUrl
+ * @returns {String}
+ */
+export function getImageIdFromImageUrl(imageUrl) {
+  const matchGroup = imageUrl.match(/https?:\/\/.*\/img\/(.*)/);
+  if (matchGroup && matchGroup.length === 2) {
+    return matchGroup[1];
+  }
+  throw new Error(`Fail to parse imageId from imageUrl ${imageUrl}`);
 }
 
 /**
