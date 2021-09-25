@@ -12,7 +12,7 @@ import { Downloader } from "./downloader.js";
 
 const PORT = 7670;
 const DOWNLOAD_INTERVAL = 200;
-const CONCURRENCY = 4;
+const CONCURRENCY = 8;
 const VAR_PATH = path.resolve(cwd(), "./var");
 const POSTS_PATH = path.resolve(VAR_PATH, "./posts");
 
