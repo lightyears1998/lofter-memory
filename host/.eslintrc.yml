@@ -1,0 +1,13 @@
+env:
+  es6: true
+  node: true
+parserOptions:
+  sourceType: module # Enable ES6 style import
+  allowImportExportEverywhere": true # Enable ES6 style import
+plugins:
+  - import
+extends:
+  - "@lightyears1998/lightyears-style"
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly

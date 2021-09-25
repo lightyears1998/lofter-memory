@@ -11,7 +11,15 @@
     "url": "https://github.com/lightyears1998/lofter-memory.git"
   },
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint src --fix"
+  },
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@lightyears1998/eslint-config-lightyears-style": "^1.5.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.24.2"
   }
 }
