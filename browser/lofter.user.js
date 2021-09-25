@@ -17,48 +17,50 @@ const MutationObserver = window.MutationObserver || window.WebKitMutationObserve
 setup();
 
 function setup() {
-  const observer = new MutationObserver(function(mutations, observer) {
+  const observer = new MutationObserver(function (mutations) {
     for (const mu of mutations) {
-      const target = mu.target
+      const target = mu.target;
       if (target.classList.contains("m-mlist")) {
-        let postUrl = ""
-        let postPublishData = ""
-        let txt = ""
-        let img = []
+        let postUrl = "";
+        let postPublishData = "";
+        let txt = "";
+        let img = [];
 
-        const postMetaNode = target.querySelector(".isayc")
+        const postMetaNode = target.querySelector(".isayc");
         if (!postMetaNode) {
-          console.warn(`Weird: Cannot find postUrl.`, target)
+          console.warn("Weird: Cannot find postUrl.", target);
           continue;
         }
-        postUrl = postMetaNode.href
-        postPublishData = postMetaNode.title.match(/\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}/g)[0] || ""
+        postUrl = postMetaNode.href;
+        postPublishData = postMetaNode.title.match(/\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}/g)[0] || "";
 
-        const txtNodes = target.querySelectorAll(".txt")
+        const txtNodes = target.querySelectorAll(".txt");
         if (txtNodes.length > 0) {
           if (txtNodes.length !== 2) {
-            console.warn(`Weird: the number of txt nodes of each .m-mlist element should be 2, but ${txtNodes.length} here.`, txtNodes)
+            console.warn(`Weird: the number of txt nodes of each .m-mlist element should be 2, but ${txtNodes.length} here.`, txtNodes);
           }
-          const html1 = txtNodes[0].innerHTML
-          const html2 = txtNodes[1] ? txtNodes[1].innerHTML: ""
-          const realHtml = html1.length > html2.length ? html1 : html2
-          txt = realHtml
+          const html1 = txtNodes[0].innerHTML;
+          const html2 = txtNodes[1] ? txtNodes[1].innerHTML: "";
+          const realHtml = html1.length > html2.length ? html1 : html2;
+          txt = realHtml;
         }
 
-        const imgNodes = target.querySelectorAll(".imgc")
+        const imgNodes = target.querySelectorAll(".imgc");
         for (const imgNode of imgNodes) {
-          const innerNode = imgNode.querySelector("a img")
+          const innerNode = imgNode.querySelector("a img");
           if (innerNode) {
-            img.push(innerNode.src)
+            img.push(innerNode.src);
           }
         }
 
         if (txt || img.length > 0) {
-          postData(postUrl, {target, postUrl, postPublishData, txt, img})
+          postData(postUrl, {
+            target, postUrl, postPublishData, txt, img
+          });
         }
       }
     }
-  })
+  });
 
   const main = document.getElementById("main");
   observer.observe(main, {
@@ -71,13 +73,11 @@ function postData(postUrl, data) {
   GM_xmlhttpRequest({
     method: "POST",
     url: "http://localhost:7670",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     data: JSON.stringify(data),
     onerror: function (res) {
-      console.log(res)
+      console.log(res);
     }
-  })
-  console.log(`Posted: ${postUrl}, ${data}`)
+  });
+  console.log(`Posted: ${postUrl}, ${data}`);
 }

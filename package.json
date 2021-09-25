@@ -1,7 +1,7 @@
 {
   "name": "lofter-memory",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "host/index.js",
   "author": "lightyears1998",
   "engines": {
     "node": ">=14"
@@ -12,7 +12,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "lint": "eslint src --fix"
+    "lint": "eslint browser host --fix"
   },
   "dependencies": {
     "express": "^4.17.1"
