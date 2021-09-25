@@ -3,6 +3,7 @@ env:
   browser: true
   node: true
 parserOptions:
+  ecmaVersion: 2020 # Node.js v14+
   sourceType: module # Enable ES6 style import
   allowImportExportEverywhere": true # Enable ES6 style import
 plugins:
