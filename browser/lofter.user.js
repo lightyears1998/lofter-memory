@@ -76,7 +76,7 @@ function postData(postUrl, data) {
     headers: { "Content-Type": "application/json" },
     data: JSON.stringify(data),
     onerror: function (res) {
-      console.log(res);
+      console.log("Error posting data", postUrl, data);
     }
   });
   console.log(`Posted: ${postUrl}, ${data}`);
