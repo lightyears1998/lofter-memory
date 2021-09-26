@@ -79,6 +79,8 @@ app.post("/", async (req, res) => {
 
   if (postIsCreatedOrUpdated) {
     opCnt++;
+    downloader.queueTaskOfPost(post);
+    downloader.processQueue();
   }
   res.send(`Received: ${postUrl}`);
 });

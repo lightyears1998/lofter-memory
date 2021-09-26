@@ -1,6 +1,6 @@
 {
   "name": "@lightyears1998/lofter-memory",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "host/index.js",
   "author": "lightyears1998",
   "engines": {

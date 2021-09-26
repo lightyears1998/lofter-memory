@@ -13,6 +13,8 @@
 // https://stackoverflow.com/questions/2844565/is-there-a-javascript-jquery-dom-change-listener
 // https://wangdoc.com/javascript/dom/element.html#elementclassnameelementclasslist
 
+"use strict";
+
 const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
 
 setup();
@@ -34,7 +36,7 @@ function domMutationHandler(mutations) {
     const postItem = target.closest(".m-mlist"); // Find the closest .m-mlist element on the element itself and its parents.
     if (postItem && postItem.classList.contains("m-mlist")) {
       let postUrl = "";
-      let postPublishData = "";
+      let postPublishDate = "";
       let text = "";
       let imageUrls = [];
 
@@ -44,7 +46,7 @@ function domMutationHandler(mutations) {
         continue;
       }
       postUrl = postMetaNode.href;
-      postPublishDate = postMetaNode.title.match(/\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}/g)[0] || "";
+      postPublishDate = postMetaNode.title.match(/(\d{4}\/)?\d{2}\/\d{2} \d{2}:\d{2}/g)[0] || "";
 
       const textNodes = postItem.querySelectorAll(".txt");
       if (textNodes.length > 0) {
@@ -66,7 +68,7 @@ function domMutationHandler(mutations) {
       }
 
       if (text || imageUrls.length > 0) {
-        deboundPostData(postUrl, {
+        debouncePostData(postUrl, {
           postUrl, postPublishDate, text, imageUrls
         });
       }
@@ -75,7 +77,7 @@ function domMutationHandler(mutations) {
 }
 
 const fireMap = new Map();
-function deboundPostData(postUrl, data) {
+function debouncePostData(postUrl, data) {
   let timer = fireMap.get(postUrl);
   if (timer) {
     clearTimeout(timer);

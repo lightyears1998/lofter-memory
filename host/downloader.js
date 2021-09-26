@@ -46,10 +46,7 @@ export class Downloader {
       const { postUrl } = post;
       for (const imageUrl of post.imageUrls) {
         try {
-          const task = new DownloadTask(postUrl, imageUrl, this.maxRetry);
-          if (!this.hasDownloadedOrQueued(task)) {
-            this.queue.push(task);
-          }
+          this.queueTask(postUrl, imageUrl);
         } catch (e) {
           console.error(e);
         }
@@ -57,6 +54,20 @@ export class Downloader {
     }
     console.log(`Queue ${this.queue.length} tasks to download`);
     this.processQueue();
+  }
+
+  queueTask(postUrl, imageUrl) {
+    const task = new DownloadTask(postUrl, imageUrl, this.maxRetry);
+    if (!this.hasDownloadedOrQueued(task)) {
+      this.queue.push(task);
+    }
+  }
+
+  queueTaskOfPost(post) {
+    const { postUrl } = post;
+    for (const imageUrl of post.imageUrls) {
+      this.queueTask(postUrl, imageUrl);
+    }
   }
 
   processQueue() {
@@ -111,9 +122,10 @@ export class Downloader {
   getImagePath(task) {
     const {
       username,
+      postId,
       imageId
     } = task;
-    return path.resolve(this.basePath, username, imageId);
+    return path.resolve(this.basePath, username, postId, imageId);
   }
 
   hasDownloadedOrQueued(task) {

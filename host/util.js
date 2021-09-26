@@ -13,12 +13,12 @@ export function getUsernameFromPostUrl(postUrl) {
 /**
  *
  * @param {String} postUrl
- * @returns {String}
+ * @returns {String} postId，可用于文件路径
  */
 export function getPostIdFromPostUrl(postUrl) {
   const matchGroup = postUrl.match(/https?:\/\/.*\.lofter.com\/post\/(.*)/);
   if (matchGroup && matchGroup.length === 2) {
-    return matchGroup[1];
+    return matchGroup[1].replace(/[\/\<\>\:\"\\\|\?\*]/g, "_");
   }
   throw new Error(`Fail to parse postId from postUrl ${postUrl}`);
 }
@@ -49,12 +49,12 @@ export function handleImageUrls(imageUrls) {
 /**
  *
  * @param {String} imageUrl
- * @returns {String}
+ * @returns {String} imageId，可用于文件路径
  */
 export function getImageIdFromImageUrl(imageUrl) {
   const matchGroup = imageUrl.match(/https?:\/\/.*\/img\/(.*)/);
   if (matchGroup && matchGroup.length === 2) {
-    return matchGroup[1];
+    return matchGroup[1].replace(/[\/\<\>\:\"\\\|\?\*]/g, "_");
   }
   throw new Error(`Fail to parse imageId from imageUrl ${imageUrl}`);
 }
