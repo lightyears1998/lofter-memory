@@ -2,6 +2,10 @@
 
 将 Lofter 乐乎上喜欢的博文缓存到本地。
 
+![Screenshot](./docs/screenshot.png)
+
+> 屏幕截图中的图像来自[木森艺术的 Lofter](https://musendesign.lofter.com/post/3208f8cc_1c99ec997)。
+
 ## 用法
 
 1. 克隆仓库 `git clone https://github.com/lightyears1998/lofter-memory`
@@ -16,6 +20,8 @@
 
 - 更友善的 README
 - 保存更多 Meta 信息
+- 选择性下载喜欢的博文
+- 本地浏览工具
 
 ----
 
