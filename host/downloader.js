@@ -24,7 +24,7 @@ export class DownloadTask {
 }
 
 /**
- * JS一时爽，维护火葬场
+ *
  */
 export class Downloader {
   /**
