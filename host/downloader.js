@@ -1,4 +1,4 @@
-import path, { resolve } from "path";
+import path from "path";
 
 import got from "got";
 import fs from "fs-extra";
@@ -63,6 +63,7 @@ export class Downloader {
     while (this.downloading.filter(task => task != undefined).length < this.concurrency) {
       const task = this.queue.shift();
       if (!task) {
+        console.log("All queued tasks are completed.");
         return;
       }
 
